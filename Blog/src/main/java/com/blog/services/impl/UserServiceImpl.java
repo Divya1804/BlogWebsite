@@ -2,6 +2,7 @@ package com.blog.services.impl;
 
 import com.blog.entities.User;
 import com.blog.exceptions.ResourceNotFound;
+import com.blog.payloads.UpdatePasswordDto;
 import com.blog.payloads.UserDto;
 import com.blog.repositories.UserRepo;
 import com.blog.services.UserServices;
@@ -38,6 +39,19 @@ public class UserServiceImpl implements UserServices {
 
         User user2 = userRepo.save(user);
         return modelMapper.map(user2, UserDto.class);
+    }
+
+    @Override
+    public UserDto updatePassword(UpdatePasswordDto passwordDto, Integer userId) {
+        User user = userRepo.findById(userId).orElseThrow(() -> new ResourceNotFound("Donor", "Id", userId));
+        if(passwordDto.getPassword().equals(user.getPassword())){
+            if(passwordDto.getConfirmPassword().equals(passwordDto.getNewPassword())){
+                user.setPassword(passwordDto.getConfirmPassword());
+                userRepo.save(user);
+            }
+        }
+
+        return modelMapper.map(user, UserDto.class);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.blog.controllers;
 
+import com.blog.payloads.UpdatePasswordDto;
 import com.blog.payloads.UserDto;
 import com.blog.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,12 @@ public class UserController {
     private ResponseEntity<?> updateUser(@RequestBody UserDto userDto, @PathVariable("userId") Integer userId){
         UserDto userDto1 = userServices.updateUser(userDto, userId);
         return new ResponseEntity<>(userDto1, HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping("/updatepassword/{userId}")
+    private ResponseEntity<?> usdatePassword(@RequestBody UpdatePasswordDto passwordDto, @PathVariable("userId") Integer userId){
+        UserDto userDto = userServices.updatePassword(passwordDto, userId);
+        return new ResponseEntity<>(userDto, HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/{userId}")
