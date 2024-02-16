@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,4 +25,6 @@ public class Category {
     @Column(name = "category_description", length = 500, nullable = false)
     private String catDescription;
 
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private List<Post> post;
 }

@@ -1,9 +1,13 @@
 package com.blog.services.impl;
 
+import com.blog.entities.Post;
 import com.blog.entities.User;
 import com.blog.exceptions.ResourceNotFound;
+import com.blog.payloads.PostDetailDto;
+import com.blog.payloads.PostDto;
 import com.blog.payloads.UpdatePasswordDto;
 import com.blog.payloads.UserDto;
+import com.blog.repositories.PostRepo;
 import com.blog.repositories.UserRepo;
 import com.blog.services.UserServices;
 import org.modelmapper.ModelMapper;
@@ -17,6 +21,9 @@ public class UserServiceImpl implements UserServices {
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private PostRepo postRepo;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -67,4 +74,14 @@ public class UserServiceImpl implements UserServices {
         List<UserDto> userDtos = users.stream().map(dto -> modelMapper.map(dto, UserDto.class)).collect(Collectors.toList());
         return userDtos;
     }
+
+//    @Override
+//    public PostDetailDto getPostById(Integer userId, Integer postId){
+//        User user = userRepo.findById(userId).orElseThrow(() -> new ResourceNotFound("User", "Id", userId));
+//        Post post = postRepo.findById(postId).orElseThrow(() -> new ResourceNotFound("Post", "Id", postId));
+//        if (post.getUser().equals(user)){
+//            return modelMapper.map(post, PostDetailDto.class);
+//        }
+//        return null;
+//    }
 }

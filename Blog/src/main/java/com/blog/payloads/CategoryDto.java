@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,4 +22,6 @@ public class CategoryDto {
     @NotBlank(message = "Description is must for other users to understand the Category properly and it will helps them to interact with your created posts")
     @Size(min = 10, max = 600, message = "The description must be less than 600 words")
     private String catDescription;
+
+    private List<PostDetailDto> post;
 }

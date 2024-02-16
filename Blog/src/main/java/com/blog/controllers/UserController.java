@@ -1,5 +1,7 @@
 package com.blog.controllers;
 
+import com.blog.payloads.PostDetailDto;
+import com.blog.payloads.PostDto;
 import com.blog.payloads.UpdatePasswordDto;
 import com.blog.payloads.UserDto;
 import com.blog.services.UserServices;
@@ -46,5 +48,11 @@ public class UserController {
         List<UserDto> userDtos = userServices.getAllUsers();
         return new ResponseEntity<>(userDtos, HttpStatus.OK);
     }
+
+//    @GetMapping("/{userId}/post/{postId}")
+//    private ResponseEntity<?> getPostById(@PathVariable("userId") Integer userId, @PathVariable("postId") Integer postId){
+//        PostDetailDto postDto = userServices.getPostById(userId, postId);
+//        return new ResponseEntity<>(postDto, HttpStatus.OK);
+//    }
 
 }
