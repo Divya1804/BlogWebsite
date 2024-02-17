@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.List;
 
 @Setter
 @Getter
@@ -31,4 +32,7 @@ public class Post {
 
     @ManyToOne
     private Category category;
+
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments;
 }
