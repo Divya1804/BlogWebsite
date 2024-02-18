@@ -9,5 +9,5 @@ import java.util.List;
 public interface PostRepo extends JpaRepository<Post, Integer> {
     List<Post> findPostsByUser(User user);
     List<Post> findPostsByCategory(Category category);
-//    List<Post> findByTitleContaining(String title);
+    List<Post> findByPostTitleContaining(String title);
 }

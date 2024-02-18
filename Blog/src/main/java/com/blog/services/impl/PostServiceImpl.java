@@ -5,6 +5,7 @@ import com.blog.entities.Post;
 import com.blog.entities.User;
 import com.blog.exceptions.ResourceNotFound;
 import com.blog.payloads.PostDto;
+import com.blog.payloads.PostResponse;
 import com.blog.repositories.CategoryRepo;
 import com.blog.repositories.PostRepo;
 import com.blog.repositories.UserRepo;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -85,11 +87,37 @@ public class PostServiceImpl implements PostServices {
     }
 
     @Override
-    public List<PostDto> getAllPosts(Integer pageNumber, Integer pageSize) {
+    public PostResponse getAllPosts(Integer pageNumber, Integer pageSize, String sortBy, String sortDir) {
+        //  For ascending order :- use Sort.by(sortBy).ascending()
+        //  For descending order :- use Sort.by(sortBy).descending()
 
-        Pageable page = PageRequest.of(pageNumber, pageSize);
+        Sort sort = null;
+        if (sortDir.equalsIgnoreCase("asc")){
+            sort = Sort.by(sortBy).ascending();
+        }
+        else {
+            sort = Sort.by(sortBy).descending();
+        }
+
+        Pageable page = PageRequest.of(pageNumber, pageSize, sort);
 
         Page<Post> posts = postRepo.findAll(page);
+        List<PostDto> dtos = posts.stream().map(dto -> model.map(dto, PostDto.class)).collect(Collectors.toList());
+
+        PostResponse postResponse = new PostResponse();
+        postResponse.setContent(dtos);
+        postResponse.setPageNumber(posts.getNumber());
+        postResponse.setPageSize(posts.getSize());
+        postResponse.setTotalElements(posts.getTotalElements());
+        postResponse.setTotalPages(posts.getTotalPages());
+        postResponse.setIsLast(posts.isLast());
+
+        return postResponse;
+    }
+
+    @Override
+    public List<PostDto> searchPost(String keyword){
+        List<Post> posts = this.postRepo.findByPostTitleContaining(keyword);
         return posts.stream().map(dto -> model.map(dto, PostDto.class)).collect(Collectors.toList());
     }
 }

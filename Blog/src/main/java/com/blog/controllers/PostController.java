@@ -2,6 +2,7 @@ package com.blog.controllers;
 
 import com.blog.payloads.ApiResponse;
 import com.blog.payloads.PostDto;
+import com.blog.payloads.PostResponse;
 import com.blog.services.PostServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,9 +30,9 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    private ResponseEntity<?> getAllPosts(@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber, @RequestParam(value = "pageSize", defaultValue = "5", required = false) Integer pageSize){
-        List<PostDto> postDtoList = postServices.getAllPosts(pageNumber, pageSize);
-        return new ResponseEntity<>(postDtoList, HttpStatus.OK);
+    private ResponseEntity<?> getAllPosts(@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber, @RequestParam(value = "pageSize", defaultValue = "5", required = false) Integer pageSize, @RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy, @RequestParam(value = "sortDir", required = false, defaultValue = "asc") String sortDir){
+        PostResponse posts = postServices.getAllPosts(pageNumber, pageSize, sortBy, sortDir);
+        return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
     @GetMapping("/post/{postId}")
@@ -56,5 +57,11 @@ public class PostController {
     private ResponseEntity<?> deletePost(@PathVariable("postId") Integer postId){
         ApiResponse api = new ApiResponse("Post Deleted successfully" , true);
         return new ResponseEntity<>(api, HttpStatus.GONE);
+    }
+
+    @GetMapping("/post/search/{keyword}")
+    private ResponseEntity<?> searchPost(@PathVariable("keyword") String keyword){
+        List<PostDto> dtos = postServices.searchPost(keyword);
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 }
