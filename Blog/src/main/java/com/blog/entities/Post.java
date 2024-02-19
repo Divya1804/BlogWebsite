@@ -33,6 +33,6 @@ public class Post {
     @ManyToOne
     private Category category;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> comments;
 }
