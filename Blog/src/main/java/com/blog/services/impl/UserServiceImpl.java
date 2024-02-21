@@ -1,10 +1,7 @@
 package com.blog.services.impl;
 
-import com.blog.entities.Post;
 import com.blog.entities.User;
 import com.blog.exceptions.ResourceNotFound;
-import com.blog.payloads.PostDetailDto;
-import com.blog.payloads.PostDto;
 import com.blog.payloads.UpdatePasswordDto;
 import com.blog.payloads.UserDto;
 import com.blog.repositories.PostRepo;
@@ -13,6 +10,7 @@ import com.blog.services.UserServices;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,6 +29,7 @@ public class UserServiceImpl implements UserServices {
     @Override
     public UserDto createUser(UserDto userDto) {
         User user = modelMapper.map(userDto, User.class);
+//        user.setUserId(UUID.randomUUID().toString());  // For generating random Ids As a String
         User user2 = userRepo.save(user);
         return modelMapper.map(user2, UserDto.class);
     }
