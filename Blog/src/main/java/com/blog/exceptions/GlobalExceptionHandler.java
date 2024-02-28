@@ -5,6 +5,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.orm.jpa.JpaSystemException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -23,6 +24,13 @@ public class GlobalExceptionHandler {
         String msg = ex.getMessage();
         ApiResponse api = new ApiResponse(msg, false);
         return new ResponseEntity<>(api, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<?> badCredentialException(BadCredentialsException ex){
+        String msg = ex.getMessage();
+        ApiResponse api = new ApiResponse(msg, false);
+        return new ResponseEntity<>(api, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
