@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth/")
 public class AuthController {
 
     @Autowired
@@ -41,12 +41,19 @@ public class AuthController {
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
         String token = this.helper.generateToken(userDetails);
 
-        JwtResponse response = JwtResponse.builder()
-                .jwtToken(token).username(userDetails.getUsername()).build();
+//        JwtResponse response = JwtResponse.builder()
+//                .jwtToken(token).username(userDetails.getUsername()).build();
+
+        JwtResponse response = new JwtResponse();
+        response.setJwtToken(token);
+        response.setUsername(userDetails.getUsername());
+        System.out.println("Token = Trial = " + token + " " + userDetails.getUsername());
+
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     private void doAuthenticate(String username, String password){
+        System.out.println("Done !!..");
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, password);
         try{
             manager.authenticate(authentication);
