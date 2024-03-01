@@ -38,18 +38,11 @@ public class AuthController {
     private ResponseEntity<?> login(@RequestBody JwtRequest request){
         this.doAuthenticate(request.getUsername(), request.getPassword());
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
+        UserDetails userDetails = this.userDetailsService.loadUserByUsername(request.getUsername());
         String token = this.helper.generateToken(userDetails);
-
-//        JwtResponse response = JwtResponse.builder()
-//                .jwtToken(token).username(userDetails.getUsername()).build();
-
         JwtResponse response = new JwtResponse();
         response.setJwtToken(token);
-        response.setUsername(userDetails.getUsername());
-        System.out.println("Token = Trial = " + token + " " + userDetails.getUsername());
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<JwtResponse>(response, HttpStatus.OK);
     }
 
     private void doAuthenticate(String username, String password){
