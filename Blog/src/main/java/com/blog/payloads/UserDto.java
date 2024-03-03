@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -32,5 +33,7 @@ public class UserDto {
     private String about;
 
     private List<PostDetailDto> post;
+
+    private Set<RoleDto> roles;
 
 }

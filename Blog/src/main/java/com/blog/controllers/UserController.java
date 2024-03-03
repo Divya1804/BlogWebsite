@@ -1,7 +1,5 @@
 package com.blog.controllers;
 
-import com.blog.payloads.PostDetailDto;
-import com.blog.payloads.PostDto;
 import com.blog.payloads.UpdatePasswordDto;
 import com.blog.payloads.UserDto;
 import com.blog.services.UserServices;
@@ -10,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
+@CrossOrigin
 public class UserController {
 
     @Autowired

@@ -3,6 +3,8 @@ package com.blog.controllers;
 import com.blog.entities.JwtRequest;
 import com.blog.entities.JwtResponse;
 import com.blog.jwt.JwtTokenHelper;
+import com.blog.payloads.UserDto;
+import com.blog.services.UserServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class AuthController {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private UserServices userServices;
 
     @Autowired
     private AuthenticationManager manager;
@@ -54,6 +59,11 @@ public class AuthController {
         }catch (BadCredentialsException e){
             throw new BadCredentialsException("Invalid Username and Password");
         }
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(@RequestBody UserDto userDto){
+        return new ResponseEntity<>(userServices.registerNewUser(userDto), HttpStatus.CREATED);
     }
 
 }
