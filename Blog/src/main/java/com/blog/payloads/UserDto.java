@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -34,6 +36,6 @@ public class UserDto {
 
     private List<PostDetailDto> post;
 
-    private Set<RoleDto> roles;
+    private Set<RoleDto> roles = new HashSet<>();
 
 }
