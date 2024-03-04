@@ -5,6 +5,7 @@ import com.blog.entities.JwtResponse;
 import com.blog.jwt.JwtTokenHelper;
 import com.blog.payloads.UserDto;
 import com.blog.services.UserServices;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody UserDto userDto){
+    public ResponseEntity<?> registerUser(@Valid @RequestBody UserDto userDto){
         return new ResponseEntity<>(userServices.registerNewUser(userDto), HttpStatus.CREATED);
     }
 

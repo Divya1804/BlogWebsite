@@ -18,18 +18,19 @@ public class UserDto {
 
     private Integer userId;
 
-    @NotBlank(message = "Name must be valid and provided.")
+    @NotEmpty(message = "Name must be valid and provided.")
     @Size(min = 2, message = "Name must be grater than 1 character")
     private String name;
 
+    @NotEmpty(message = "Email must be entered")
     @Email(message = "Email is invalid.")
     private String email;
 
-    @NotBlank(message = "username must be unique and filled.")
+    @NotEmpty(message = "username must be unique and filled.")
     private String userName;
 
     @Size(min = 8,max = 16,message = "Must contain valid password having more then 8 characters and less then 16 characters")
-    @NotBlank(message = "Must contain proper value")
+    @NotEmpty(message = "Must contain proper value")
     private String password;
 
     private String about;
