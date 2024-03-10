@@ -39,7 +39,7 @@ public class AuthController {
     private Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     @PostMapping("/login")
-    private ResponseEntity<?> login(@RequestBody JwtRequest request){
+    private ResponseEntity<?> login(@Valid @RequestBody JwtRequest request){
         this.doAuthenticate(request.getUsername(), request.getPassword());
 
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(request.getUsername());
