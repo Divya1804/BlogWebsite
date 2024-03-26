@@ -1,6 +1,6 @@
-# Blog Website
+# InspireWriteHub Blog Website
 
-Welcome to our fully-featured blog website, developed as a pre-final project for the "FULL STACK DEVELOPMENT" course during the 6th Semester at Dharmsinh Desai University.
+Welcome to our fully-featured blog website, developed by Divya Patel as a pre-final project for the "FULL STACK DEVELOPMENT" course during the 6th Semester at Dharmsinh Desai University.
 
 ## Technologies Used
 
